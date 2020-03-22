@@ -1,0 +1,16 @@
+{
+  "name": "@filecoin-shipyard/lotus-client-schema",
+  "version": "0.0.1",
+  "description": "Lotus JS Client Schema module",
+  "type": "module",
+  "scripts": {
+    "lint": "standardx",
+    "test": "npm run lint"
+  },
+  "keywords": [],
+  "author": "Jim Pick (@jimpick)",
+  "license": "(Apache-2.0 AND MIT)",
+  "dependencies": {
+    "standardx": "^5.0.0"
+  }
+}
