@@ -80,7 +80,7 @@ const methods = {
     }
   },
 
-  //	StateMinerPostState(ctx context.Context, actor address.Address, tsk types.TipSetKey) (*miner.PoStState, error)
+  // StateMinerPostState(ctx context.Context, actor address.Address, tsk types.TipSetKey) (*miner.PoStState, error)
   // ps, err := api.StateMinerPostState(ctx, maddr, types.EmptyTSK)
   StateMinerPostState: {
     args: [
@@ -275,15 +275,15 @@ const methods = {
 
 /*
 type MinerPower struct {
-	MinerPower types.BigInt
-	TotalPower types.BigInt
+  MinerPower types.BigInt
+  TotalPower types.BigInt
 }
 */
 
 /*
 type MinerSectors struct {
-	Pset uint64
-	Sset uint64
+  Pset uint64
+  Sset uint64
 }
 */
 
@@ -291,141 +291,141 @@ type MinerSectors struct {
 type SectorNumber uint64
 
 func (s SectorNumber) String() string {
-	return strconv.FormatUint(uint64(s), 10)
+  return strconv.FormatUint(uint64(s), 10)
 }
 */
 
 /*
 /type PoStState struct {
-	// Epoch that starts the current proving period
-	ProvingPeriodStart abi.ChainEpoch
+  // Epoch that starts the current proving period
+  ProvingPeriodStart abi.ChainEpoch
 
-	// Number of surprised post challenges that have been failed since last successful PoSt.
-	// Indicates that the claimed storage power may not actually be proven. Recovery can proceed by
-	// submitting a correct response to a subsequent PoSt challenge, up until
-	// the limit of number of consecutive failures.
-	NumConsecutiveFailures int64
+  // Number of surprised post challenges that have been failed since last successful PoSt.
+  // Indicates that the claimed storage power may not actually be proven. Recovery can proceed by
+  // submitting a correct response to a subsequent PoSt challenge, up until
+  // the limit of number of consecutive failures.
+  NumConsecutiveFailures int64
 }
 
 type ChainEpoch int64
 
 func (e ChainEpoch) String() string {
-	return strconv.FormatInt(int64(e), 10)
+  return strconv.FormatInt(int64(e), 10)
 }
 */
 
 /*
 type TipSet struct {
-	cids   []cid.Cid
-	blks   []*BlockHeader
-	height abi.ChainEpoch
+  cids   []cid.Cid
+  blks   []*BlockHeader
+  height abi.ChainEpoch
 }
 */
 
 /*
 
 const (
-	UndefinedSectorState SectorState = iota  0
+  UndefinedSectorState SectorState = iota  0
 
-	// happy path
-	Empty 1
-	Packing 2 // sector not in sealStore, and not on chain
+  // happy path
+  Empty 1
+  Packing 2 // sector not in sealStore, and not on chain
 
-	Unsealed 3      // sealing / queued
-	PreCommitting 4 // on chain pre-commit
-	WaitSeed 5      // waiting for seed
-	Committing 6
-	CommitWait 7 // waiting for message to land on chain
-	FinalizeSector 8
-	Proving 9
-	_ 10 // reserved
-	_ 11
-	_ 12
+  Unsealed 3      // sealing / queued
+  PreCommitting 4 // on chain pre-commit
+  WaitSeed 5      // waiting for seed
+  Committing 6
+  CommitWait 7 // waiting for message to land on chain
+  FinalizeSector 8
+  Proving 9
+  _ 10 // reserved
+  _ 11
+  _ 12
 
-	// recovery handling
-	// Reseal
-	_ 13
-	_ 14
-	_ 15
-	_ 16
-	_ 17
-	_ 18
-	_ 19
+  // recovery handling
+  // Reseal
+  _ 13
+  _ 14
+  _ 15
+  _ 16
+  _ 17
+  _ 18
+  _ 19
 
-	// error modes
-	FailedUnrecoverable 20
+  // error modes
+  FailedUnrecoverable 20
 
-	SealFailed 21
-	PreCommitFailed 22
-	SealCommitFailed 23
-	CommitFailed 24
-	PackingFailed 25
-	_ 26
-	_ 27
-	_ 28
+  SealFailed 21
+  PreCommitFailed 22
+  SealCommitFailed 23
+  CommitFailed 24
+  PackingFailed 25
+  _ 26
+  _ 27
+  _ 28
 
-	Faulty 29        // sector is corrupted or gone for some reason
-	FaultReported 30 // sector has been declared as a fault on chain
-	FaultedFinal 31  // fault declared on chain
+  Faulty 29        // sector is corrupted or gone for some reason
+  FaultReported 30 // sector has been declared as a fault on chain
+  FaultedFinal 31  // fault declared on chain
 )
 
 type SectorInfo struct {
-	SectorID abi.SectorNumber
-	State    SectorState
-	CommD    *cid.Cid
-	CommR    *cid.Cid
-	Proof    []byte
-	Deals    []abi.DealID
-	Ticket   SealTicket
-	Seed     SealSeed
-	Retries  uint64
+  SectorID abi.SectorNumber
+  State    SectorState
+  CommD    *cid.Cid
+  CommR    *cid.Cid
+  Proof    []byte
+  Deals    []abi.DealID
+  Ticket   SealTicket
+  Seed     SealSeed
+  Retries  uint64
 
-	LastErr string
+  LastErr string
 
-	Log []SectorLog
+  Log []SectorLog
 }
 
 var SectorStates = []string{
-	UndefinedSectorState: "UndefinedSectorState",
-	Empty:                "Empty",
-	Packing:              "Packing",
-	Unsealed:             "Unsealed",
-	PreCommitting:        "PreCommitting",
-	WaitSeed:             "WaitSeed",
-	Committing:           "Committing",
-	CommitWait:           "CommitWait",
-	FinalizeSector:       "FinalizeSector",
-	Proving:              "Proving",
+  UndefinedSectorState: "UndefinedSectorState",
+  Empty:                "Empty",
+  Packing:              "Packing",
+  Unsealed:             "Unsealed",
+  PreCommitting:        "PreCommitting",
+  WaitSeed:             "WaitSeed",
+  Committing:           "Committing",
+  CommitWait:           "CommitWait",
+  FinalizeSector:       "FinalizeSector",
+  Proving:              "Proving",
 
-	SealFailed:       "SealFailed",
-	PreCommitFailed:  "PreCommitFailed",
-	SealCommitFailed: "SealCommitFailed",
-	CommitFailed:     "CommitFailed",
-	PackingFailed:    "PackingFailed",
+  SealFailed:       "SealFailed",
+  PreCommitFailed:  "PreCommitFailed",
+  SealCommitFailed: "SealCommitFailed",
+  CommitFailed:     "CommitFailed",
+  PackingFailed:    "PackingFailed",
 
-	FailedUnrecoverable: "FailedUnrecoverable",
+  FailedUnrecoverable: "FailedUnrecoverable",
 
-	Faulty:        "Faulty",
-	FaultReported: "FaultReported",
-	FaultedFinal:  "FaultedFinal",
+  Faulty:        "Faulty",
+  FaultReported: "FaultReported",
+  FaultedFinal:  "FaultedFinal",
 }
 */
 
 /*
 // Version provides various build-time information
 type Version struct {
-	Version string
+  Version string
 
-	// APIVersion is a binary encoded semver version of the remote implementing
-	// this api
-	//
-	// See APIVersion in build/version.go
-	APIVersion build.Version
+  // APIVersion is a binary encoded semver version of the remote implementing
+  // this api
+  //
+  // See APIVersion in build/version.go
+  APIVersion build.Version
 
-	// TODO: git commit / os / genesis cid?
+  // TODO: git commit / os / genesis cid?
 
-	// Seconds
-	BlockDelay uint64
+  // Seconds
+  BlockDelay uint64
 }
 */
 
