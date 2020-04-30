@@ -15,7 +15,7 @@ const methods = {
     subscription: true
   },
 
-  ListMiners: {},
+  StateListMiners: {},
 
   // Full Node
 
@@ -54,7 +54,15 @@ const methods = {
     ]
   }
   */
-  ClientStartDeal: {},
+
+	// ClientStartDeal(ctx context.Context, params *StartDealParams) (*cid.Cid, error)
+
+  ClientStartDeal: {}, // FIXME
+
+	// ClientListDeals(ctx context.Context) ([]DealInfo, error)
+
+  ClientListDeals: {}, // FIXME
+
 
   // StateMinerPower         func(context.Context, address.Address, types.TipSetKey) (*api.MinerPower, error)                             `perm:"read"`
   // percI := types.BigDiv(types.BigMul(pow.MinerPower, types.NewInt(1000000)), pow.TotalPower)
@@ -189,6 +197,9 @@ const methods = {
       }
     ]
   },
+
+  // StateMarketStorageDeal(context.Context, abi.DealID, types.TipSetKey) (*MarketDeal, error)
+  StateMarketStorageDeal: {}, // FIXME
 
   // WalletBalance        func(context.Context, address.Address) (types.BigInt, error)                         `perm:"read"`
   // balance, err := api.WalletBalance(ctx, addr)
