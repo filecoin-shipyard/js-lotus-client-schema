@@ -1,4 +1,8 @@
 const methods = {
+
+  //  NetFindPeer(context.Context, peer.ID) (peer.AddrInfo, error)
+  NetFindPeer: {}, // FIXME
+
   // Version func(context.Context) (api.Version, error)
   Version: {
     args: [],
@@ -29,6 +33,9 @@ const methods = {
       complexType: 'TipSet'
     }
   },
+
+	// ChainGetGenesis(context.Context) (*types.TipSet, error)
+  ChainGetGenesis: {}, // FIXME
 
   // ClientStartDeal   func(ctx context.Context, params *api.StartDealParams) (*cid.Cid, error)                             `perm:"admin"`
   /*
@@ -63,6 +70,50 @@ const methods = {
 
   ClientListDeals: {}, // FIXME
 
+  // ClientHasLocal(ctx context.Context, root cid.Cid) (bool, error)
+
+  // {"jsonrpc":"2.0","id":1,"method":"Filecoin.ClientHasLocal",
+  // "params":[{"/":"bafkreid4ll4qnj7rb6l2kfegtpg74m7lliilcmui3gmk2myckkrjxzshlq"}]}
+
+  ClientHasLocal: {}, // FIXME
+
+  // ClientFindData(ctx context.Context, root cid.Cid) ([]QueryOffer, error)
+
+  // {"jsonrpc":"2.0","id":2,"method":"Filecoin.ClientFindData",
+  // "params":[{"/":"bafkreid4ll4qnj7rb6l2kfegtpg74m7lliilcmui3gmk2myckkrjxzshlq"}]}
+
+  ClientFindData: {}, // FIXME
+
+	// ClientRetrieve(ctx context.Context, order RetrievalOrder, ref FileRef) error
+
+  ClientRetrieve: {}, // FIXME
+
+  /*
+  {
+    "jsonrpc":"2.0",
+    "id":3,
+    "method":"Filecoin.ClientRetrieve",
+    "params": [
+      {
+        "Root": {
+          "/": "bafkreic63nfhxpv4rpamv65gz5zfv5mvomys3xzbtyb5hiz3ilogau57ge"
+        },
+        "Size":2032,
+        "Total":"4064",
+        "PaymentInterval":1048576,
+        "PaymentIntervalIncrease":1048576,
+        "Client":"t3rtq7nigyc2wo6d4rjtzac2r772cph6jagidk427dowpdtxzj3td3gntafz5kjnlx6wet5puac6qtkwby74ja",
+        "Miner":"t0100",
+        "MinerPeerID":"12D3KooW9tZYNwFBmshE7wB9bMnN6BFU5LX1F6Ck429zPYFgoUvX"
+      },
+      {
+        "Path": "/root/downloads/out.jpg",
+        "IsCAR": false
+      }
+    ]
+  }
+  */
+
 
   // StateMinerPower         func(context.Context, address.Address, types.TipSetKey) (*api.MinerPower, error)                             `perm:"read"`
   // percI := types.BigDiv(types.BigMul(pow.MinerPower, types.NewInt(1000000)), pow.TotalPower)
@@ -87,6 +138,9 @@ const methods = {
       complexType: 'MinerPower'
     }
   },
+
+	// StateMinerInfo(context.Context, address.Address, types.TipSetKey) (miner.MinerInfo, error)
+  StateMinerInfo: {},
 
   // StateMinerPostState(ctx context.Context, actor address.Address, tsk types.TipSetKey) (*miner.PoStState, error)
   // ps, err := api.StateMinerPostState(ctx, maddr, types.EmptyTSK)
