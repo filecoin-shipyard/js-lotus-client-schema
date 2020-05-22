@@ -31,6 +31,8 @@ import (
 	"github.com/multiformats/go-multiaddr"
 )
 
+var Methods = map[string]interface{}{}
+
 var ExampleValues = map[reflect.Type]interface{}{
 	reflect.TypeOf(auth.Permission("")): auth.Permission("write"),
 	reflect.TypeOf(""):                  "string value",
@@ -179,7 +181,9 @@ func (v *Visitor) Visit(node ast.Node) ast.Visitor {
 		return v
 	}
 
-	if st.Name.Name != "FullNode" {
+	// if st.Name.Name != "Common" {
+	// if st.Name.Name != "FullNode" {
+	if st.Name.Name != "StorageMiner" {
 		return nil
 	}
 
@@ -207,7 +211,8 @@ func parseApiASTInfo() (map[string]string, map[string]string) {
 
 	ap := pkgs["api"]
 
-	f := ap.Files[filepath.Join(apiDir, "api_full.go")]
+	// f := ap.Files[filepath.Join(apiDir, "api_full.go")]
+	f := ap.Files[filepath.Join(apiDir, "api_common.go")]
 
 	cmap := ast.NewCommentMap(fset, f, f.Comments)
 
@@ -252,8 +257,10 @@ type MethodGroup struct {
 type Method struct {
 	Comment         string
 	Name            string
+	/*
 	InputExample    string
 	ResponseExample string
+	*/
 }
 
 func methodGroupFromName(mn string) string {
@@ -272,7 +279,9 @@ func main() {
 
 	groups := make(map[string]*MethodGroup)
 
-	var api struct{ api.FullNode }
+	// var api struct{ api.Common }
+	// var api struct{ api.FullNode }
+	var api struct{ api.StorageMiner }
 	t := reflect.TypeOf(api)
 	for i := 0; i < t.NumMethod(); i++ {
 		m := t.Method(i)
@@ -287,6 +296,7 @@ func main() {
 			groups[groupName] = g
 		}
 
+		/*
 		var args []interface{}
 		ft := m.Func.Type()
 		for j := 2; j < ft.NumIn(); j++ {
@@ -305,12 +315,13 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		*/
 
 		g.Methods = append(g.Methods, &Method{
 			Name:            m.Name,
 			Comment:         comments[m.Name],
-			InputExample:    string(v),
-			ResponseExample: string(ov),
+			// InputExample:    string(v),
+			// ResponseExample: string(ov),
 		})
 	}
 
@@ -323,20 +334,33 @@ func main() {
 		return groupslice[i].GroupName < groupslice[j].GroupName
 	})
 
+	methods := make(map[string]interface{})
 	for _, g := range groupslice {
-		fmt.Printf("## %s\n", g.GroupName)
-		fmt.Printf("%s\n\n", g.Header)
+		// fmt.Printf("## %s\n", g.GroupName)
+		// fmt.Printf("%s\n\n", g.Header)
 
 		sort.Slice(g.Methods, func(i, j int) bool {
 			return g.Methods[i].Name < g.Methods[j].Name
 		})
 
 		for _, m := range g.Methods {
-			fmt.Printf("### %s\n", m.Name)
-			fmt.Printf("%s\n\n", m.Comment)
+			// fmt.Printf("### %s\n", m.Name)
+			record := make(map[string]interface{})
+			if m.Name == "ChainNotify" {
+				record["subscription"] = true
+			}
+			methods[m.Name] = record
 
-			fmt.Printf("Inputs: `%s`\n\n", m.InputExample)
-			fmt.Printf("Response: `%s`\n\n", m.ResponseExample)
+			// fmt.Printf("%s\n\n", m.Comment)
+
+			// fmt.Printf("Inputs: `%s`\n\n", m.InputExample)
+			// fmt.Printf("Response: `%s`\n\n", m.ResponseExample)
 		}
+
 	}
+	output, err := json.Marshal(methods)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%s", output)
 }
