@@ -177,12 +177,18 @@ const minerMethods = {
 }
 
 
-const schema = {
+const fullNode = {
   methods: {
     ...commonMethods,
-    ...nodeMethods,
+    ...nodeMethods
+  }
+}
+
+const storageMiner = {
+  methods: {
+    ...commonMethods,
     ...minerMethods
   }
 }
 
-export default schema
+module.exports = { fullNode, storageMiner }
