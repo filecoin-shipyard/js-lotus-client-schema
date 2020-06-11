@@ -1,6 +1,6 @@
 # Lotus JS Client Schema
 
-This package contains some JSON files that describe methods exported by the
+This package contains some .js files that describe methods exported by the
 [Lotus](https://github.com/filecoin-project/lotus) JSON-RPC API.
 
 See [filecoin-shipyard/js-lotus-client](https://github.com/filecoin-shipyard/js-lotus-client)
