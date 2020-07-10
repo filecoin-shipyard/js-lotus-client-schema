@@ -2,9 +2,9 @@ module github.com/filecoin-shipyard/js-lotus-client-schema/go-docgen/full-node
 
 go 1.14
 
+replace github.com/filecoin-project/lotus => ../lotus
+
 require (
-	github.com/filecoin-project/go-jsonrpc v0.1.1-0.20200520183639-7c6ee2e066b4 // indirect
-	github.com/filecoin-project/lotus v0.3.1-0.20200521170719-0d3f602d58eb // indirect
-	github.com/filecoin-project/specs-actors v0.5.4-0.20200521014528-0df536f7e461 // indirect
-	github.com/libp2p/go-libp2p-core v0.5.6 // indirect
+	github.com/filecoin-project/go-bitfield v0.0.3 // indirect
+	github.com/filecoin-project/lotus v0.0.0-00010101000000-000000000000 // indirect
 )
