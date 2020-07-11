@@ -4,7 +4,4 @@ go 1.14
 
 replace github.com/filecoin-project/lotus => ../lotus
 
-require (
-	github.com/filecoin-project/go-bitfield v0.0.3 // indirect
-	github.com/filecoin-project/lotus v0.0.0-00010101000000-000000000000 // indirect
-)
+require github.com/filecoin-project/lotus v0.0.0-00010101000000-000000000000 // indirect
