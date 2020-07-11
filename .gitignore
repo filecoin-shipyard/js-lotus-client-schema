@@ -2,3 +2,4 @@ node_modules
 yarn.lock
 dual-publish-tmp
 tmp*
+lotus
