@@ -11,24 +11,10 @@ import (
 	"reflect"
 	"sort"
 	"strings"
-	"time"
 	"unicode"
 
-	"github.com/filecoin-project/go-address"
-	"github.com/filecoin-project/go-bitfield"
 	"github.com/filecoin-project/go-jsonrpc/auth"
 	"github.com/filecoin-project/lotus/api"
-	"github.com/filecoin-project/lotus/build"
-	"github.com/filecoin-project/lotus/chain/types"
-	"github.com/filecoin-project/lotus/node/modules/dtypes"
-	"github.com/filecoin-project/specs-actors/actors/abi"
-	"github.com/filecoin-project/specs-actors/actors/crypto"
-	"github.com/filecoin-project/specs-actors/actors/runtime/exitcode"
-	"github.com/ipfs/go-cid"
-	"github.com/ipfs/go-filestore"
-	"github.com/libp2p/go-libp2p-core/network"
-	peer "github.com/libp2p/go-libp2p-peer"
-	"github.com/multiformats/go-multiaddr"
 )
 
 var Methods = map[string]interface{}{}
@@ -43,82 +29,6 @@ var ExampleValues = map[reflect.Type]interface{}{
 
 func addExample(v interface{}) {
 	ExampleValues[reflect.TypeOf(v)] = v
-}
-
-func init() {
-	c, err := cid.Decode("bafy2bzacea3wsdh6y3a36tb3skempjoxqpuyompjbmfeyf34fi3uy6uue42v4")
-	if err != nil {
-		panic(err)
-	}
-
-	ExampleValues[reflect.TypeOf(c)] = c
-
-	c2, err := cid.Decode("bafy2bzacebp3shtrn43k7g3unredz7fxn4gj533d3o43tqn2p2ipxxhrvchve")
-	if err != nil {
-		panic(err)
-	}
-
-	tsk := types.NewTipSetKey(c, c2)
-
-	ExampleValues[reflect.TypeOf(tsk)] = tsk
-
-	addr, err := address.NewIDAddress(1234)
-	if err != nil {
-		panic(err)
-	}
-
-	ExampleValues[reflect.TypeOf(addr)] = addr
-
-	pid, err := peer.IDB58Decode("12D3KooWGzxzKZYveHXtpG6AsrUJBcWxHBFS2HsEoGTxrMLvKXtf")
-	if err != nil {
-		panic(err)
-	}
-	addExample(pid)
-
-	addExample(bitfield.NewFromSet([]uint64{5}))
-	addExample(abi.RegisteredProof_StackedDRG32GiBPoSt)
-	addExample(abi.ChainEpoch(10101))
-	addExample(crypto.SigTypeBLS)
-	addExample(int64(9))
-	addExample(abi.MethodNum(1))
-	addExample(exitcode.ExitCode(0))
-	addExample(crypto.DomainSeparationTag_ElectionProofProduction)
-	addExample(true)
-	addExample(abi.UnpaddedPieceSize(1024))
-	addExample(abi.UnpaddedPieceSize(1024).Padded())
-	addExample(abi.DealID(5432))
-	addExample(filestore.StatusFileChanged)
-	addExample(abi.SectorNumber(9))
-	addExample(abi.SectorSize(32 * 1024 * 1024 * 1024))
-	addExample(api.MpoolChange(0))
-	addExample(network.Connected)
-	addExample(dtypes.NetworkName("lotus"))
-	addExample(api.SyncStateStage(1))
-	addExample(build.APIVersion)
-	addExample(api.PCHInbound)
-	addExample(time.Minute)
-	addExample(&types.ExecutionResult{
-		Msg:    exampleValue(reflect.TypeOf(&types.Message{})).(*types.Message),
-		MsgRct: exampleValue(reflect.TypeOf(&types.MessageReceipt{})).(*types.MessageReceipt),
-	})
-	addExample(map[string]types.Actor{
-		"t01236": exampleValue(reflect.TypeOf(types.Actor{})).(types.Actor),
-	})
-	addExample(map[string]api.MarketDeal{
-		"t026363": exampleValue(reflect.TypeOf(api.MarketDeal{})).(api.MarketDeal),
-	})
-	addExample(map[string]api.MarketBalance{
-		"t026363": exampleValue(reflect.TypeOf(api.MarketBalance{})).(api.MarketBalance),
-	})
-
-	maddr, err := multiaddr.NewMultiaddr("/ip4/52.36.61.156/tcp/1347/p2p/12D3KooWFETiESTf1v4PGUvtnxMAcEFMzLZbJGg4tjWfGEimYior")
-	if err != nil {
-		panic(err)
-	}
-
-	// because reflect.TypeOf(maddr) returns the concrete type...
-	ExampleValues[reflect.TypeOf(struct{ A multiaddr.Multiaddr }{}).Field(0).Type] = maddr
-
 }
 
 func exampleValue(t reflect.Type) interface{} {
