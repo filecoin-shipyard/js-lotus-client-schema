@@ -34,7 +34,7 @@ const methods = {
     }
   },
 
-	// ChainGetGenesis(context.Context) (*types.TipSet, error)
+  // ChainGetGenesis(context.Context) (*types.TipSet, error)
   ChainGetGenesis: {}, // FIXME
 
   // ClientStartDeal   func(ctx context.Context, params *api.StartDealParams) (*cid.Cid, error)                             `perm:"admin"`
@@ -62,11 +62,11 @@ const methods = {
   }
   */
 
-	// ClientStartDeal(ctx context.Context, params *StartDealParams) (*cid.Cid, error)
+  // ClientStartDeal(ctx context.Context, params *StartDealParams) (*cid.Cid, error)
 
   ClientStartDeal: {}, // FIXME
 
-	// ClientListDeals(ctx context.Context) ([]DealInfo, error)
+  // ClientListDeals(ctx context.Context) ([]DealInfo, error)
 
   ClientListDeals: {}, // FIXME
 
@@ -84,7 +84,7 @@ const methods = {
 
   ClientFindData: {}, // FIXME
 
-	// ClientRetrieve(ctx context.Context, order RetrievalOrder, ref FileRef) error
+  // ClientRetrieve(ctx context.Context, order RetrievalOrder, ref FileRef) error
 
   ClientRetrieve: {}, // FIXME
 
@@ -114,7 +114,6 @@ const methods = {
   }
   */
 
-
   // StateMinerPower         func(context.Context, address.Address, types.TipSetKey) (*api.MinerPower, error)                             `perm:"read"`
   // percI := types.BigDiv(types.BigMul(pow.MinerPower, types.NewInt(1000000)), pow.TotalPower)
   // fmt.Printf("Power: %s / %s (%0.4f%%)\n", types.SizeStr(pow.MinerPower), types.SizeStr(pow.TotalPower), float64(percI.Int64())/10000)
@@ -139,7 +138,7 @@ const methods = {
     }
   },
 
-	// StateMinerInfo(context.Context, address.Address, types.TipSetKey) (miner.MinerInfo, error)
+  // StateMinerInfo(context.Context, address.Address, types.TipSetKey) (miner.MinerInfo, error)
   StateMinerInfo: {},
 
   // StateMinerPostState(ctx context.Context, actor address.Address, tsk types.TipSetKey) (*miner.PoStState, error)

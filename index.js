@@ -6,4 +6,3 @@ const testnet = {
 }
 
 module.exports = { testnet }
-
