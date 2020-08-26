@@ -6,16 +6,80 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
 	"strings"
 	"unicode"
 
+	"github.com/filecoin-project/go-jsonrpc/auth"
 	"github.com/filecoin-project/lotus/api"
 )
 
 var Methods = map[string]interface{}{}
+
+var ExampleValues = map[reflect.Type]interface{}{
+	reflect.TypeOf(auth.Permission("")): auth.Permission("write"),
+	reflect.TypeOf(""):                  "string value",
+	reflect.TypeOf(uint64(42)):          uint64(42),
+	reflect.TypeOf(byte(7)):             byte(7),
+	reflect.TypeOf([]byte{}):            []byte("byte array"),
+}
+
+func addExample(v interface{}) {
+	ExampleValues[reflect.TypeOf(v)] = v
+}
+
+func exampleValue(t reflect.Type) interface{} {
+	v, ok := ExampleValues[t]
+	if ok {
+		return v
+	}
+
+	switch t.Kind() {
+	case reflect.Slice:
+		out := reflect.New(t).Elem()
+		reflect.Append(out, reflect.ValueOf(exampleValue(t.Elem())))
+		return out.Interface()
+	case reflect.Chan:
+		return exampleValue(t.Elem())
+	case reflect.Struct:
+		es := exampleStruct(t)
+		v := reflect.ValueOf(es).Elem().Interface()
+		ExampleValues[t] = v
+		return v
+	case reflect.Array:
+		out := reflect.New(t).Elem()
+		for i := 0; i < t.Len(); i++ {
+			out.Index(i).Set(reflect.ValueOf(exampleValue(t.Elem())))
+		}
+		return out.Interface()
+
+	case reflect.Ptr:
+		if t.Elem().Kind() == reflect.Struct {
+			es := exampleStruct(t.Elem())
+			//ExampleValues[t] = es
+			return es
+		}
+	case reflect.Interface:
+		return struct{}{}
+	}
+
+	panic(fmt.Sprintf("No example value for type: %s", t))
+}
+
+func exampleStruct(t reflect.Type) interface{} {
+	ns := reflect.New(t)
+	for i := 0; i < t.NumField(); i++ {
+		f := t.Field(i)
+		if strings.Title(f.Name) == f.Name {
+			ns.Elem().Field(i).Set(reflect.ValueOf(exampleValue(f.Type)))
+		}
+	}
+
+	return ns.Interface()
+}
 
 type Visitor struct {
 	Methods map[string]ast.Node
@@ -48,8 +112,7 @@ const noComment = "There are not yet any comments for this method."
 func parseApiASTInfo() (map[string]string, map[string]string) {
 
 	fset := token.NewFileSet()
-	// apiDir := filepath.Join(os.Args[1], "api")
-	apiDir := filepath.Join("../../lotus", "api")
+	apiDir := filepath.Join(os.Args[1], "api")
 	pkgs, err := parser.ParseDir(fset, apiDir, nil,
 		parser.AllErrors|parser.ParseComments)
 	if err != nil {
