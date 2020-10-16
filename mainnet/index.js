@@ -1,12 +1,18 @@
 const commonMethods = {
   AuthNew: {},
   AuthVerify: {},
-  Closing: {},
+  Closing: {
+    subscription: true
+  },
   ID: {},
   LogList: {},
   LogSetLevel: {},
   NetAddrsListen: {},
+  NetAgentVersion: {},
   NetAutoNatStatus: {},
+  NetBandwidthStats: {},
+  NetBandwidthStatsByPeer: {},
+  NetBandwidthStatsByProtocol: {},
   NetConnect: {},
   NetConnectedness: {},
   NetDisconnect: {},
@@ -17,11 +23,14 @@ const commonMethods = {
   Version: {}
 }
 
-const nodeMethods = {
+const fullNodeMethods = {
   AuthNew: {},
   AuthVerify: {},
   BeaconGetEntry: {},
-  ChainExport: {},
+  ChainDeleteObj: {},
+  ChainExport: {
+    subscription: true
+  },
   ChainGetBlock: {},
   ChainGetBlockMessages: {},
   ChainGetGenesis: {},
@@ -44,11 +53,16 @@ const nodeMethods = {
   ChainStatObj: {},
   ChainTipSetWeight: {},
   ClientCalcCommP: {},
-  ClientDataTransferUpdates: {},
+  ClientDataTransferUpdates: {
+    subscription: true
+  },
   ClientDealSize: {},
   ClientFindData: {},
   ClientGenCar: {},
   ClientGetDealInfo: {},
+  ClientGetDealUpdates: {
+    subscription: true
+  },
   ClientHasLocal: {},
   ClientImport: {},
   ClientListDataTransfers: {},
@@ -57,10 +71,17 @@ const nodeMethods = {
   ClientMinerQueryOffer: {},
   ClientQueryAsk: {},
   ClientRemoveImport: {},
+  ClientRestartDataTransfer: {},
   ClientRetrieve: {},
-  ClientRetrieveWithEvents: {},
+  ClientRetrieveTryRestartInsufficientFunds: {},
+  ClientRetrieveWithEvents: {
+    subscription: true
+  },
   ClientStartDeal: {},
-  Closing: {},
+  Closing: {
+    subscription: true
+  },
+  CreateBackup: {},
   GasEstimateFeeCap: {},
   GasEstimateGasLimit: {},
   GasEstimateGasPremium: {},
@@ -77,19 +98,33 @@ const nodeMethods = {
   MpoolPending: {},
   MpoolPush: {},
   MpoolPushMessage: {},
+  MpoolPushUntrusted: {},
   MpoolSelect: {},
   MpoolSetConfig: {},
-  MpoolSub: {},
+  MpoolSub: {
+    subscription: true
+  },
+  MsigAddApprove: {},
+  MsigAddCancel: {},
+  MsigAddPropose: {},
   MsigApprove: {},
+  MsigApproveTxnHash: {},
   MsigCancel: {},
   MsigCreate: {},
   MsigGetAvailableBalance: {},
+  MsigGetVested: {},
+  MsigGetVestingSchedule: {},
   MsigPropose: {},
+  MsigRemoveSigner: {},
   MsigSwapApprove: {},
   MsigSwapCancel: {},
   MsigSwapPropose: {},
   NetAddrsListen: {},
+  NetAgentVersion: {},
   NetAutoNatStatus: {},
+  NetBandwidthStats: {},
+  NetBandwidthStatsByPeer: {},
+  NetBandwidthStatsByProtocol: {},
   NetConnect: {},
   NetConnectedness: {},
   NetDisconnect: {},
@@ -97,6 +132,8 @@ const nodeMethods = {
   NetPeers: {},
   NetPubsubScores: {},
   PaychAllocateLane: {},
+  PaychAvailableFunds: {},
+  PaychAvailableFundsByFromTo: {},
   PaychCollect: {},
   PaychGet: {},
   PaychGetWaitReady: {},
@@ -142,6 +179,7 @@ const nodeMethods = {
   StateMinerSectorCount: {},
   StateMinerSectors: {},
   StateNetworkName: {},
+  StateNetworkVersion: {},
   StateReadState: {},
   StateReplay: {},
   StateSearchMsg: {},
@@ -149,13 +187,23 @@ const nodeMethods = {
   StateSectorGetInfo: {},
   StateSectorPartition: {},
   StateSectorPreCommitInfo: {},
+  StateVMCirculatingSupplyInternal: {},
   StateVerifiedClientStatus: {},
+  StateVerifiedRegistryRootKey: {},
+  StateVerifierStatus: {},
   StateWaitMsg: {},
+  StateWaitMsgLimited: {},
   SyncCheckBad: {},
-  SyncIncomingBlocks: {},
+  SyncCheckpoint: {},
+  SyncIncomingBlocks: {
+    subscription: true
+  },
   SyncMarkBad: {},
   SyncState: {},
   SyncSubmitBlock: {},
+  SyncUnmarkAllBad: {},
+  SyncUnmarkBad: {},
+  SyncValidateTipset: {},
   Version: {},
   WalletBalance: {},
   WalletDefaultAddress: {},
@@ -168,15 +216,19 @@ const nodeMethods = {
   WalletSetDefault: {},
   WalletSign: {},
   WalletSignMessage: {},
+  WalletValidateAddress: {},
   WalletVerify: {}
 }
 
-const minerMethods = {
+const storageMinerMethods = {
   ActorAddress: {},
   ActorSectorSize: {},
   AuthNew: {},
   AuthVerify: {},
-  Closing: {},
+  Closing: {
+    subscription: true
+  },
+  CreateBackup: {},
   DealsConsiderOfflineRetrievalDeals: {},
   DealsConsiderOfflineStorageDeals: {},
   DealsConsiderOnlineRetrievalDeals: {},
@@ -192,9 +244,13 @@ const minerMethods = {
   ID: {},
   LogList: {},
   LogSetLevel: {},
-  MarketDataTransferUpdates: {},
+  MarketDataTransferUpdates: {
+    subscription: true
+  },
   MarketGetAsk: {},
-  MarketGetDealUpdates: {},
+  MarketGetDealUpdates: {
+    subscription: true
+  },
   MarketGetRetrievalAsk: {},
   MarketImportDealData: {},
   MarketListDataTransfers: {},
@@ -205,7 +261,11 @@ const minerMethods = {
   MarketSetRetrievalAsk: {},
   MiningBase: {},
   NetAddrsListen: {},
+  NetAgentVersion: {},
   NetAutoNatStatus: {},
+  NetBandwidthStats: {},
+  NetBandwidthStatsByPeer: {},
+  NetBandwidthStatsByProtocol: {},
   NetConnect: {},
   NetConnectedness: {},
   NetDisconnect: {},
@@ -249,18 +309,90 @@ const minerMethods = {
   WorkerStats: {}
 }
 
+const gatewayApiMethods = {
+  ChainGetTipSet: {},
+  ChainGetTipSetByHeight: {},
+  ChainHasObj: {},
+  ChainHead: {},
+  ChainReadObj: {},
+  GasEstimateMessageGas: {},
+  MpoolPush: {},
+  MsigGetAvailableBalance: {},
+  MsigGetVested: {},
+  StateAccountKey: {},
+  StateGetActor: {},
+  StateLookupID: {},
+  StateWaitMsg: {}
+}
+
+const walletApiMethods = {
+  WalletDelete: {},
+  WalletExport: {},
+  WalletHas: {},
+  WalletImport: {},
+  WalletList: {},
+  WalletNew: {},
+  WalletSign: {}
+}
+
+const workerApiMethods = {
+  AddPiece: {},
+  Closing: {
+    subscription: true
+  },
+  Fetch: {},
+  FinalizeSector: {},
+  Info: {},
+  MoveStorage: {},
+  Paths: {},
+  ReadPiece: {},
+  ReleaseUnsealed: {},
+  Remove: {},
+  SealCommit1: {},
+  SealCommit2: {},
+  SealPreCommit1: {},
+  SealPreCommit2: {},
+  StorageAddLocal: {},
+  TaskTypes: {},
+  UnsealPiece: {},
+  Version: {}
+}
+
+const common = {
+  methods: commonMethods
+}
+
 const fullNode = {
   methods: {
     ...commonMethods,
-    ...nodeMethods
+    ...fullNodeMethods
   }
 }
 
 const storageMiner = {
   methods: {
     ...commonMethods,
-    ...minerMethods
+    ...storageMinerMethods
   }
 }
 
-module.exports = { fullNode, storageMiner }
+const gatewayApi = {
+  methods: gatewayApiMethods
+}
+
+const walletApi = {
+  methods: walletApiMethods
+}
+
+const workerApi = {
+  methods: workerApiMethods
+}
+
+module.exports = {
+  common,
+  fullNode,
+  storageMiner,
+  gatewayApi,
+  walletApi,
+  workerApi
+}

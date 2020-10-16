@@ -30,6 +30,8 @@ func main() {
 	case "WorkerAPI":
 		var api struct{ api.WorkerAPI }
 		t = reflect.TypeOf(api)
+	default:
+		panic("Unknown API")
 	}
 	methods := make(map[string]interface{})
 	for i := 0; i < t.NumMethod(); i++ {
