@@ -1,8 +1,8 @@
-module github.com/filecoin-shipyard/js-lotus-client-schema/go-schemagen/full-node
+module github.com/filecoin-shipyard/js-lotus-client-schema/go-schemagen
 
 go 1.14
 
-replace github.com/filecoin-project/lotus => ../lotus
+replace github.com/filecoin-project/lotus => ./lotus
 
 require (
 	github.com/filecoin-project/go-jsonrpc v0.1.2-0.20201008195726-68c6a2704e49
