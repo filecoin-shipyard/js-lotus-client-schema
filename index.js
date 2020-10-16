@@ -1,4 +1,11 @@
-const { fullNode, storageMiner } = require('./mainnet')
+const {
+  common,
+  fullNode,
+  storageMiner,
+  gatewayApi,
+  walletApi,
+  workerApi
+} = require('./mainnet')
 
 const mainnet = {
   common,
