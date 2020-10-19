@@ -8,7 +8,7 @@ for examples that show how to use these schemas.
 
 ## Usage
 
-```
+```js
 const { LotusRPC } = require('@filecoin-shipyard/lotus-client-rpc')
 const { NodejsProvider } = require('@filecoin-shipyard/lotus-client-provider-nodejs')
 const { mainnet } = require('@filecoin-shipyard/lotus-client-schema')
