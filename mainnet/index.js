@@ -178,6 +178,7 @@ const fullNodeMethods = {
   StateMinerRecoveries: {},
   StateMinerSectorCount: {},
   StateMinerSectors: {},
+  StateMsgGasCost: {},
   StateNetworkName: {},
   StateNetworkVersion: {},
   StateReadState: {},
@@ -312,9 +313,7 @@ const storageMinerMethods = {
 const gatewayApiMethods = {
   ChainGetTipSet: {},
   ChainGetTipSetByHeight: {},
-  ChainHasObj: {},
   ChainHead: {},
-  ChainReadObj: {},
   GasEstimateMessageGas: {},
   MpoolPush: {},
   MsigGetAvailableBalance: {},
