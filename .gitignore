@@ -4,3 +4,4 @@ dual-publish-tmp
 tmp*
 lotus
 go-schemagen/lotus
+.vscode

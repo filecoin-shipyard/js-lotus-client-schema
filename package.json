@@ -1,11 +1,11 @@
 {
-  "name": "@filecoin-shipyard/lotus-client-schema",
-  "version": "0.0.14",
+  "name": "@jimick/lotus-client-schema",
+  "version": "0.0.15",
   "scripts": {
     "lint": "standard",
     "test": "npm run lint",
-    "dual-publish": "release-it --no-npm.publish && dual-publish",
-    "dual-publish-check": "rm -rf dual-publish-tmp; dual-publish --check"
+    "dual-publish": "rm -f go-schemagen/lotus; release-it --no-npm.publish && dual-publish",
+    "dual-publish-check": "rm -f go-schemagen/lotus; rm -rf dual-publish-tmp; dual-publish --check"
   },
   "keywords": [],
   "author": "Jim Pick (@jimpick)",
