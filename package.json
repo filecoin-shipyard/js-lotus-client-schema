@@ -4,8 +4,8 @@
   "scripts": {
     "lint": "standard",
     "test": "npm run lint",
-    "dual-publish": "rm -f go-schemagen/lotus; release-it --no-npm.publish && dual-publish",
-    "dual-publish-check": "rm -f go-schemagen/lotus; rm -rf dual-publish-tmp; dual-publish --check"
+    "dual-publish": "release-it --no-npm.publish && dual-publish",
+    "dual-publish-check": "rm -rf dual-publish-tmp; dual-publish --check"
   },
   "keywords": [],
   "author": "Jim Pick (@jimpick)",
