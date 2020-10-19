@@ -1,8 +1,19 @@
-const { fullNode, storageMiner } = require('./testnet')
-
-const testnet = {
+const {
+  common,
   fullNode,
-  storageMiner
+  storageMiner,
+  gatewayApi,
+  walletApi,
+  workerApi
+} = require('./mainnet')
+
+const mainnet = {
+  common,
+  fullNode,
+  storageMiner,
+  gatewayApi,
+  walletApi,
+  workerApi
 }
 
-module.exports = { testnet }
+module.exports = { mainnet }
