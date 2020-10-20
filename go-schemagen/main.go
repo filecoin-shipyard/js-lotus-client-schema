@@ -150,10 +150,10 @@ func main() {
 				record.appendParam(handlerParam(firstOut))
 				record.Returns = "[() => {}, Promise<void>]" // this is a weird API
 			} else {
-				record.Returns = toParam(firstOut).Type
+				record.Returns = fmt.Sprintf("Promise<%s>", toParam(firstOut).Type)
 			}
 		} else {
-			record.Returns = "void"
+			record.Returns = "Promise<void>"
 		}
 
 		// first argument is receiver, so skip over this
