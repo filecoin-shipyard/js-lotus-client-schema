@@ -81,7 +81,7 @@ func main() {
 		c.AddTypes(map[reflect.Type]string{t: name})
 	}
 
-	var methods []string
+	methods := []string{"constructor (provider: any, options: { schema: any })"}
 	for i := 0; i < t.NumMethod(); i++ {
 		m := t.Method(i)
 		ts := c.ConvertMethod(m)
