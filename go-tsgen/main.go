@@ -5,11 +5,11 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/alanshaw/go2ts"
 	"github.com/filecoin-project/go-address"
 	"github.com/filecoin-project/go-state-types/abi"
 	"github.com/filecoin-project/lotus/api"
 	"github.com/filecoin-project/lotus/chain/types"
-	"github.com/filecoin-shipyard/js-lotus-client-schema/go-tsgen/go2ts"
 	"github.com/ipfs/go-cid"
 )
 
