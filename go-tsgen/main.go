@@ -90,7 +90,7 @@ func main() {
 		//
 		// go2ts generates a method that returns an AsyncIterable, we need to
 		// convert into a method that takes a handler function as the first param
-		// and returns a tuple with a cancel function and a promise. e.g.
+		// and returns a tuple with a cancel function and a ready promise. e.g.
 		//
 		// clientRetrieveWithEvents (retrievalOrder: RetrievalOrder, fileRef: FileRef): AsyncIterable<RetrievalEvent>
 		// is converted to:
