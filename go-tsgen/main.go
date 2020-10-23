@@ -37,7 +37,7 @@ func main() {
 	})
 
 	decls := []string{"declare type Cid = { '/': string }"}
-	exports := []string{"LotusRPC"}
+	exports := []string{"LotusRPC", "Cid"}
 
 	// for when the exported struct is not the struct used
 	exportOverrides := map[reflect.Type]interface{}{
