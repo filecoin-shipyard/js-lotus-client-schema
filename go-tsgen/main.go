@@ -85,6 +85,28 @@ func main() {
 	for i := 0; i < t.NumMethod(); i++ {
 		m := t.Method(i)
 		ts := c.ConvertMethod(m)
+
+		// deal with the API for subscriptions.
+		//
+		// go2ts generates a method that returns an AsyncIterable, we need to
+		// convert into a method that takes a handler function as the first param
+		// and returns a tuple with a cancel function and a promise. e.g.
+		//
+		// clientRetrieveWithEvents (retrievalOrder: RetrievalOrder, fileRef: FileRef): AsyncIterable<RetrievalEvent>
+		// is converted to:
+		// clientRetrieveWithEvents (handler: (data: RetrievalEvent) => void, retrievalOrder: RetrievalOrder, fileRef: FileRef): [() => void, Promise<void>]
+		if isSub(m) {
+			parts := strings.Split(ts, "): ")
+			dataType := strings.Replace(parts[1][:len(parts[1])-1], "AsyncIterable<", "", 1)
+			ts = parts[0] + "): [() => void, Promise<void>]"
+			parts = strings.Split(ts, " (")
+			if string(parts[1][0]) != ")" {
+				ts = fmt.Sprintf("%s (handler: (data: %s) => void, %s", parts[0], dataType, parts[1])
+			} else {
+				ts = fmt.Sprintf("%s (handler: (data: %s) => void%s", parts[0], dataType, parts[1])
+			}
+		}
+
 		if strings.HasPrefix(ts, "ID ") {
 			ts = strings.Replace(ts, "ID ", "id ", 1)
 		} else {
@@ -101,4 +123,8 @@ func main() {
 	decls = append(decls, fmt.Sprintf("export { %s }", strings.Join(exports, ", ")))
 
 	fmt.Println(strings.Join(decls, "\n"))
+}
+
+func isSub(m reflect.Method) bool {
+	return m.Type.NumOut() >= 2 && m.Type.Out(0).Kind() == reflect.Chan
 }
