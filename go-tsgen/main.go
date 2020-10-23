@@ -93,6 +93,10 @@ func main() {
 		methods = append(methods, ts)
 	}
 
+	// custom client methods
+	methods = append(methods, "importFile (body: Blob | BufferSource | FormData | URLSearchParams | string | ReadableStream): string")
+	methods = append(methods, "destroy (code?: number): void")
+
 	decls = append(decls, fmt.Sprintf("declare class LotusRPC {\n  %s\n}", strings.Join(methods, "\n  ")))
 	decls = append(decls, fmt.Sprintf("export { %s }", strings.Join(exports, ", ")))
 
