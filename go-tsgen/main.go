@@ -84,6 +84,7 @@ func main() {
 		c.AddTypes(map[reflect.Type]string{t: name})
 	}
 
+	mdocs := extractMethodDocs()
 	methods := []string{"constructor (provider: any, options: { schema: any })"}
 	for i := 0; i < t.NumMethod(); i++ {
 		m := t.Method(i)
@@ -114,6 +115,17 @@ func main() {
 			ts = strings.Replace(ts, "ID ", "id ", 1)
 		} else {
 			ts = strings.ToLower(ts[0:1]) + ts[1:]
+		}
+		if doc, ok := mdocs[m.Name]; ok {
+			methods = append(methods, "/**")
+			lines := strings.Split(strings.TrimSpace(doc), "\n")
+			for i, line := range lines {
+				if i == 0 {
+					line = strings.ToLower(line[0:1]) + line[1:]
+				}
+				methods = append(methods, " * "+line)
+			}
+			methods = append(methods, " */")
 		}
 		methods = append(methods, ts)
 	}
