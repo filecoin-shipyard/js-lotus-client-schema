@@ -60,6 +60,7 @@ const fullNodeMethods = {
   ClientFindData: {},
   ClientGenCar: {},
   ClientGetDealInfo: {},
+  ClientGetDealStatus: {},
   ClientGetDealUpdates: {
     subscription: true
   },
@@ -92,6 +93,9 @@ const fullNodeMethods = {
   MarketEnsureAvailable: {},
   MinerCreateBlock: {},
   MinerGetBaseInfo: {},
+  MpoolBatchPush: {},
+  MpoolBatchPushMessage: {},
+  MpoolBatchPushUntrusted: {},
   MpoolClear: {},
   MpoolGetConfig: {},
   MpoolGetNonce: {},
@@ -178,7 +182,6 @@ const fullNodeMethods = {
   StateMinerRecoveries: {},
   StateMinerSectorCount: {},
   StateMinerSectors: {},
-  StateMsgGasCost: {},
   StateNetworkName: {},
   StateNetworkVersion: {},
   StateReadState: {},
@@ -311,16 +314,33 @@ const storageMinerMethods = {
 }
 
 const gatewayApiMethods = {
+  ChainGetBlockMessages: {},
+  ChainGetMessage: {},
   ChainGetTipSet: {},
   ChainGetTipSetByHeight: {},
+  ChainHasObj: {},
   ChainHead: {},
+  ChainNotify: {
+    subscription: true
+  },
+  ChainReadObj: {},
   GasEstimateMessageGas: {},
   MpoolPush: {},
   MsigGetAvailableBalance: {},
   MsigGetVested: {},
   StateAccountKey: {},
+  StateDealProviderCollateralBounds: {},
   StateGetActor: {},
+  StateGetReceipt: {},
+  StateListMiners: {},
   StateLookupID: {},
+  StateMarketBalance: {},
+  StateMarketStorageDeal: {},
+  StateMinerInfo: {},
+  StateMinerPower: {},
+  StateMinerProvingDeadline: {},
+  StateNetworkVersion: {},
+  StateVerifiedClientStatus: {},
   StateWaitMsg: {}
 }
 

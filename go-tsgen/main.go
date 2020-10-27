@@ -88,7 +88,14 @@ func main() {
 	methods := []string{"constructor (provider: any, options: { schema: any })"}
 	for i := 0; i < t.NumMethod(); i++ {
 		m := t.Method(i)
-		ts := c.ConvertMethod(m)
+		c.ConfigureFunc = func(t reflect.Type) go2ts.FuncConf {
+			fconf := go2ts.FuncConf{IsMethod: true, MethodName: m.Name}
+			if t.NumOut() > 0 && t.Out(0).Kind() == reflect.Chan {
+				fconf.IsSync = true
+			}
+			return fconf
+		}
+		ts := c.Convert(m.Type)
 
 		// deal with the API for subscriptions.
 		//
