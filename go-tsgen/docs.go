@@ -17,7 +17,7 @@ func (v *visitor) Visit(node ast.Node) ast.Visitor {
 	if !ok {
 		return v
 	}
-	if st.Name.Name != "FullNode" {
+	if st.Name.Name != "FullNode" && st.Name.Name != "StorageMiner" && st.Name.Name != "WorkerAPI" {
 		return nil
 	}
 	iface := st.Type.(*ast.InterfaceType)
@@ -42,21 +42,29 @@ func extractMethodDocs() map[string]string {
 	}
 
 	ap := pkgs["api"]
-	f := ap.Files[pkg.Root+"/api/api_full.go"]
-	cmap := ast.NewCommentMap(fset, f, f.Comments)
+	mdocs := make(map[string]string)
+
+	fs := []*ast.File{
+		ap.Files[pkg.Root+"/api/api_full.go"],
+		ap.Files[pkg.Root+"/api/api_storage.go"],
+		ap.Files[pkg.Root+"/api/api_worker.go"],
+	}
 	v := &visitor{make(map[string]ast.Node)}
 
-	ast.Walk(v, ap)
+	for _, f := range fs {
+		cmap := ast.NewCommentMap(fset, f, f.Comments)
 
-	mdocs := make(map[string]string)
-	for mn, node := range v.Methods {
-		cs := cmap.Filter(node).Comments()
-		if len(cs) == 0 {
-			continue
-		}
-		last := cs[len(cs)-1].Text()
-		if !strings.HasPrefix(last, "MethodGroup:") {
-			mdocs[mn] = last
+		ast.Walk(v, ap)
+
+		for mn, node := range v.Methods {
+			cs := cmap.Filter(node).Comments()
+			if len(cs) == 0 {
+				continue
+			}
+			last := cs[len(cs)-1].Text()
+			if !strings.HasPrefix(last, "MethodGroup:") {
+				mdocs[mn] = last
+			}
 		}
 	}
 	return mdocs

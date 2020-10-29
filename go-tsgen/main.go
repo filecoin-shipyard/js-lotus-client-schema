@@ -14,9 +14,19 @@ import (
 )
 
 func main() {
-	var api struct{ api.FullNode }
+	var apiCommon struct{ api.Common }
+	var apiFullNode struct{ api.FullNode }
+	var apiStorageMiner struct{ api.StorageMiner }
+	var apiWorkerAPI struct{ api.WorkerAPI }
 
-	t := reflect.TypeOf(api)
+	apiTypes := []reflect.Type{
+		reflect.TypeOf(apiCommon),
+		reflect.TypeOf(apiFullNode),
+		reflect.TypeOf(apiStorageMiner),
+		reflect.TypeOf(apiWorkerAPI),
+	}
+
+	// t := reflect.TypeOf(api)
 	c := go2ts.NewConverter()
 
 	// weird/exceptional types
@@ -86,55 +96,63 @@ func main() {
 
 	mdocs := extractMethodDocs()
 	methods := []string{"constructor (provider: any, options: { schema: any })"}
-	for i := 0; i < t.NumMethod(); i++ {
-		m := t.Method(i)
-		c.ConfigureFunc = func(t reflect.Type) go2ts.FuncConf {
-			fconf := go2ts.FuncConf{IsMethod: true, MethodName: m.Name}
-			if t.NumOut() > 0 && t.Out(0).Kind() == reflect.Chan {
-				fconf.IsSync = true
+	convertedMethods := make(map[string]struct{})
+	for _, t := range apiTypes {
+		for i := 0; i < t.NumMethod(); i++ {
+			m := t.Method(i)
+			_, converted := convertedMethods[m.Name]
+			if converted {
+				continue
 			}
-			return fconf
-		}
-		ts := c.Convert(m.Type)
-
-		// deal with the API for subscriptions.
-		//
-		// go2ts generates a method that returns an AsyncIterable, we need to
-		// convert into a method that takes a handler function as the first param
-		// and returns a tuple with a cancel function and a ready promise. e.g.
-		//
-		// clientRetrieveWithEvents (retrievalOrder: RetrievalOrder, fileRef: FileRef): AsyncIterable<RetrievalEvent>
-		// is converted to:
-		// clientRetrieveWithEvents (handler: (data: RetrievalEvent) => void, retrievalOrder: RetrievalOrder, fileRef: FileRef): [() => void, Promise<void>]
-		if isSub(m) {
-			parts := strings.Split(ts, "): ")
-			dataType := strings.Replace(parts[1][:len(parts[1])-1], "AsyncIterable<", "", 1)
-			ts = parts[0] + "): [() => void, Promise<void>]"
-			parts = strings.Split(ts, " (")
-			if string(parts[1][0]) != ")" {
-				ts = fmt.Sprintf("%s (handler: (data: %s) => void, %s", parts[0], dataType, parts[1])
-			} else {
-				ts = fmt.Sprintf("%s (handler: (data: %s) => void%s", parts[0], dataType, parts[1])
-			}
-		}
-
-		if strings.HasPrefix(ts, "ID ") {
-			ts = strings.Replace(ts, "ID ", "id ", 1)
-		} else {
-			ts = strings.ToLower(ts[0:1]) + ts[1:]
-		}
-		if doc, ok := mdocs[m.Name]; ok {
-			methods = append(methods, "/**")
-			lines := strings.Split(strings.TrimSpace(doc), "\n")
-			for i, line := range lines {
-				if i == 0 {
-					line = strings.ToLower(line[0:1]) + line[1:]
+			convertedMethods[m.Name] = struct{}{}
+			c.ConfigureFunc = func(t reflect.Type) go2ts.FuncConf {
+				fconf := go2ts.FuncConf{IsMethod: true, MethodName: m.Name}
+				if t.NumOut() > 0 && t.Out(0).Kind() == reflect.Chan {
+					fconf.IsSync = true
 				}
-				methods = append(methods, " * "+line)
+				return fconf
 			}
-			methods = append(methods, " */")
+			ts := c.Convert(m.Type)
+
+			// deal with the API for subscriptions.
+			//
+			// go2ts generates a method that returns an AsyncIterable, we need to
+			// convert into a method that takes a handler function as the first param
+			// and returns a tuple with a cancel function and a ready promise. e.g.
+			//
+			// clientRetrieveWithEvents (retrievalOrder: RetrievalOrder, fileRef: FileRef): AsyncIterable<RetrievalEvent>
+			// is converted to:
+			// clientRetrieveWithEvents (handler: (data: RetrievalEvent) => void, retrievalOrder: RetrievalOrder, fileRef: FileRef): [() => void, Promise<void>]
+			if isSub(m) {
+				parts := strings.Split(ts, "): ")
+				dataType := strings.Replace(parts[1][:len(parts[1])-1], "AsyncIterable<", "", 1)
+				ts = parts[0] + "): [() => void, Promise<void>]"
+				parts = strings.Split(ts, " (")
+				if string(parts[1][0]) != ")" {
+					ts = fmt.Sprintf("%s (handler: (data: %s) => void, %s", parts[0], dataType, parts[1])
+				} else {
+					ts = fmt.Sprintf("%s (handler: (data: %s) => void%s", parts[0], dataType, parts[1])
+				}
+			}
+
+			if strings.HasPrefix(ts, "ID ") {
+				ts = strings.Replace(ts, "ID ", "id ", 1)
+			} else {
+				ts = strings.ToLower(ts[0:1]) + ts[1:]
+			}
+			if doc, ok := mdocs[m.Name]; ok {
+				methods = append(methods, "/**")
+				lines := strings.Split(strings.TrimSpace(doc), "\n")
+				for i, line := range lines {
+					if i == 0 {
+						line = strings.ToLower(line[0:1]) + line[1:]
+					}
+					methods = append(methods, " * "+line)
+				}
+				methods = append(methods, " */")
+			}
+			methods = append(methods, ts)
 		}
-		methods = append(methods, ts)
 	}
 
 	// custom client methods
