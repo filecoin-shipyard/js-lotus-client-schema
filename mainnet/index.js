@@ -5,7 +5,7 @@ const {
   GatewayMethods,
   WalletMethods,
   WorkerMethods
-} = require('./gen.js')
+} = require('./gen/')
 
 const common = {
   methods: CommonMethods
