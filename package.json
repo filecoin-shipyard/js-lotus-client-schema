@@ -7,7 +7,8 @@
     "test": "npm run lint",
     "prepublishOnly": "npm test",
     "dual-publish-prepare": "rm -rf dual-publish-tmp; dual-publish --check",
-    "build": "npm run dual-publish-prepare"
+    "build": "npm run dual-publish-prepare",
+    "build:schema": "./go-schemagen/generate-schema-for-api.sh && standard --fix mainnet/gen/index.js"
   },
   "keywords": [
     "filecoin"
