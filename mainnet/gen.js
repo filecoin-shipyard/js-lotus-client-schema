@@ -4,25 +4,9 @@ module.exports.CommonMethods = {
   Closing: {
     subscription: true
   },
-  ID: {},
+  Discover: {},
   LogList: {},
   LogSetLevel: {},
-  NetAddrsListen: {},
-  NetAgentVersion: {},
-  NetAutoNatStatus: {},
-  NetBandwidthStats: {},
-  NetBandwidthStatsByPeer: {},
-  NetBandwidthStatsByProtocol: {},
-  NetBlockAdd: {},
-  NetBlockList: {},
-  NetBlockRemove: {},
-  NetConnect: {},
-  NetConnectedness: {},
-  NetDisconnect: {},
-  NetFindPeer: {},
-  NetPeerInfo: {},
-  NetPeers: {},
-  NetPubsubScores: {},
   Session: {},
   Shutdown: {},
   Version: {}
@@ -32,6 +16,8 @@ module.exports.FullNodeMethods = {
   AuthNew: {},
   AuthVerify: {},
   BeaconGetEntry: {},
+  ChainBlockstoreInfo: {},
+  ChainCheckBlockstore: {},
   ChainDeleteObj: {},
   ChainExport: {
     subscription: true
@@ -40,6 +26,7 @@ module.exports.FullNodeMethods = {
   ChainGetBlockMessages: {},
   ChainGetGenesis: {},
   ChainGetMessage: {},
+  ChainGetMessagesInTipset: {},
   ChainGetNode: {},
   ChainGetParentMessages: {},
   ChainGetParentReceipts: {},
@@ -59,6 +46,7 @@ module.exports.FullNodeMethods = {
   ChainTipSetWeight: {},
   ClientCalcCommP: {},
   ClientCancelDataTransfer: {},
+  ClientCancelRetrievalDeal: {},
   ClientDataTransferUpdates: {
     subscription: true
   },
@@ -71,11 +59,15 @@ module.exports.FullNodeMethods = {
   ClientGetDealUpdates: {
     subscription: true
   },
+  ClientGetRetrievalUpdates: {
+    subscription: true
+  },
   ClientHasLocal: {},
   ClientImport: {},
   ClientListDataTransfers: {},
   ClientListDeals: {},
   ClientListImports: {},
+  ClientListRetrievals: {},
   ClientMinerQueryOffer: {},
   ClientQueryAsk: {},
   ClientRemoveImport: {},
@@ -86,10 +78,12 @@ module.exports.FullNodeMethods = {
     subscription: true
   },
   ClientStartDeal: {},
+  ClientStatelessDeal: {},
   Closing: {
     subscription: true
   },
   CreateBackup: {},
+  Discover: {},
   GasEstimateFeeCap: {},
   GasEstimateGasLimit: {},
   GasEstimateGasPremium: {},
@@ -107,6 +101,9 @@ module.exports.FullNodeMethods = {
   MpoolBatchPush: {},
   MpoolBatchPushMessage: {},
   MpoolBatchPushUntrusted: {},
+  MpoolCheckMessages: {},
+  MpoolCheckPendingMessages: {},
+  MpoolCheckReplaceMessages: {},
   MpoolClear: {},
   MpoolGetConfig: {},
   MpoolGetNonce: {},
@@ -151,6 +148,7 @@ module.exports.FullNodeMethods = {
   NetPeerInfo: {},
   NetPeers: {},
   NetPubsubScores: {},
+  NodeStatus: {},
   PaychAllocateLane: {},
   PaychAvailableFunds: {},
   PaychAvailableFundsByFromTo: {},
@@ -178,7 +176,6 @@ module.exports.FullNodeMethods = {
   StateDealProviderCollateralBounds: {},
   StateDecodeParams: {},
   StateGetActor: {},
-  StateGetReceipt: {},
   StateListActors: {},
   StateListMessages: {},
   StateListMiners: {},
@@ -206,7 +203,6 @@ module.exports.FullNodeMethods = {
   StateReadState: {},
   StateReplay: {},
   StateSearchMsg: {},
-  StateSearchMsgLimited: {},
   StateSectorExpiration: {},
   StateSectorGetInfo: {},
   StateSectorPartition: {},
@@ -216,7 +212,6 @@ module.exports.FullNodeMethods = {
   StateVerifiedRegistryRootKey: {},
   StateVerifierStatus: {},
   StateWaitMsg: {},
-  StateWaitMsgLimited: {},
   SyncCheckBad: {},
   SyncCheckpoint: {},
   SyncIncomingBlocks: {
@@ -254,6 +249,7 @@ module.exports.StorageMinerMethods = {
   Closing: {
     subscription: true
   },
+  ComputeProof: {},
   CreateBackup: {},
   DealsConsiderOfflineRetrievalDeals: {},
   DealsConsiderOfflineStorageDeals: {},
@@ -271,6 +267,7 @@ module.exports.StorageMinerMethods = {
   DealsSetConsiderUnverifiedStorageDeals: {},
   DealsSetConsiderVerifiedStorageDeals: {},
   DealsSetPieceCidBlocklist: {},
+  Discover: {},
   ID: {},
   LogList: {},
   LogSetLevel: {},
@@ -326,11 +323,17 @@ module.exports.StorageMinerMethods = {
   ReturnSealPreCommit1: {},
   ReturnSealPreCommit2: {},
   ReturnUnsealPiece: {},
+  RuntimeSubsystems: {},
   SealingAbort: {},
   SealingSchedDiag: {},
+  SectorAddPieceToAny: {},
+  SectorCommitFlush: {},
+  SectorCommitPending: {},
   SectorGetExpectedSealDuration: {},
   SectorGetSealDelay: {},
   SectorMarkForUpgrade: {},
+  SectorPreCommitFlush: {},
+  SectorPreCommitPending: {},
   SectorRemove: {},
   SectorSetExpectedSealDuration: {},
   SectorSetSealDelay: {},
@@ -343,6 +346,7 @@ module.exports.StorageMinerMethods = {
   SectorsRefs: {},
   SectorsStatus: {},
   SectorsSummary: {},
+  SectorsUnsealPiece: {},
   SectorsUpdate: {},
   Session: {},
   Shutdown: {},
@@ -384,7 +388,6 @@ module.exports.GatewayMethods = {
   StateAccountKey: {},
   StateDealProviderCollateralBounds: {},
   StateGetActor: {},
-  StateGetReceipt: {},
   StateListMiners: {},
   StateLookupID: {},
   StateMarketBalance: {},
@@ -393,10 +396,13 @@ module.exports.GatewayMethods = {
   StateMinerPower: {},
   StateMinerProvingDeadline: {},
   StateNetworkVersion: {},
+  StateReadState: {},
   StateSearchMsg: {},
   StateSectorGetInfo: {},
   StateVerifiedClientStatus: {},
-  StateWaitMsg: {}
+  StateWaitMsg: {},
+  Version: {},
+  WalletBalance: {}
 }
 
 module.exports.WalletMethods = {
@@ -418,7 +424,6 @@ module.exports.WorkerMethods = {
   MoveStorage: {},
   Paths: {},
   ProcessSession: {},
-  ReadPiece: {},
   ReleaseUnsealed: {},
   Remove: {},
   SealCommit1: {},
