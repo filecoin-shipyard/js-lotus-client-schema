@@ -21,14 +21,14 @@ func main() {
 	case "StorageMiner":
 		var api struct{ api.StorageMiner }
 		t = reflect.TypeOf(api)
-	case "GatewayAPI":
-		var api struct{ api.GatewayAPI }
+	case "Gateway":
+		var api struct{ api.Gateway }
 		t = reflect.TypeOf(api)
-	case "WalletAPI":
-		var api struct{ api.WalletAPI }
+	case "Wallet":
+		var api struct{ api.Wallet }
 		t = reflect.TypeOf(api)
-	case "WorkerAPI":
-		var api struct{ api.WorkerAPI }
+	case "Worker":
+		var api struct{ api.Worker }
 		t = reflect.TypeOf(api)
 	default:
 		panic("Unknown API")
@@ -48,7 +48,7 @@ func main() {
 		methods[m.Name] = record
 	}
 
-	output, err := json.Marshal(methods)
+	output, err := json.MarshalIndent(methods, "", "  ")
 	if err != nil {
 		panic(err)
 	}
