@@ -68,6 +68,10 @@
             {
               "scope": "no-release",
               "release": false
+            },
+            {
+              "type": "sync",
+              "release": false
             }
           ]
         }
