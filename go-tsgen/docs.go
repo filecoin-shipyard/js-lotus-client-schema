@@ -5,6 +5,7 @@ import (
 	"go/build"
 	"go/parser"
 	"go/token"
+	"io/fs"
 	"strings"
 )
 
@@ -17,7 +18,7 @@ func (v *visitor) Visit(node ast.Node) ast.Visitor {
 	if !ok {
 		return v
 	}
-	if st.Name.Name != "FullNode" && st.Name.Name != "StorageMiner" && st.Name.Name != "WorkerAPI" {
+	if st.Name.Name != "Common" && st.Name.Name != "FullNode" && st.Name.Name != "StorageMiner" && st.Name.Name != "Worker" {
 		return nil
 	}
 	iface := st.Type.(*ast.InterfaceType)
@@ -36,7 +37,9 @@ func extractMethodDocs() map[string]string {
 	}
 
 	fset := token.NewFileSet()
-	pkgs, err := parser.ParseDir(fset, pkg.Root+"/api", nil, parser.AllErrors|parser.ParseComments)
+	pkgs, err := parser.ParseDir(fset, pkg.Root+"/api", func(fi fs.FileInfo) bool {
+		return strings.HasPrefix(fi.Name(), "api_")
+	}, parser.AllErrors|parser.ParseComments)
 	if err != nil {
 		panic(err)
 	}
@@ -45,6 +48,7 @@ func extractMethodDocs() map[string]string {
 	mdocs := make(map[string]string)
 
 	fs := []*ast.File{
+		ap.Files[pkg.Root+"/api/api_common.go"],
 		ap.Files[pkg.Root+"/api/api_full.go"],
 		ap.Files[pkg.Root+"/api/api_storage.go"],
 		ap.Files[pkg.Root+"/api/api_worker.go"],
@@ -61,7 +65,12 @@ func extractMethodDocs() map[string]string {
 			if len(cs) == 0 {
 				continue
 			}
-			last := cs[len(cs)-1].Text()
+			var last string
+			for _, c := range cs {
+				if c.Text() != "" {
+					last = c.Text()
+				}
+			}
 			if !strings.HasPrefix(last, "MethodGroup:") {
 				mdocs[mn] = last
 			}

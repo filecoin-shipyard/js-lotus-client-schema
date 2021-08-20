@@ -17,7 +17,7 @@ func main() {
 	var apiCommon struct{ api.Common }
 	var apiFullNode struct{ api.FullNode }
 	var apiStorageMiner struct{ api.StorageMiner }
-	var apiWorkerAPI struct{ api.WorkerAPI }
+	var apiWorkerAPI struct{ api.Worker }
 
 	apiTypes := []reflect.Type{
 		reflect.TypeOf(apiCommon),
@@ -135,12 +135,15 @@ func main() {
 				}
 			}
 
+			if len(ts) == 0 {
+				panic("ts len 0!")
+			}
 			if strings.HasPrefix(ts, "ID ") {
 				ts = strings.Replace(ts, "ID ", "id ", 1)
 			} else {
 				ts = strings.ToLower(ts[0:1]) + ts[1:]
 			}
-			if doc, ok := mdocs[m.Name]; ok {
+			if doc, ok := mdocs[m.Name]; ok && len(doc) != 0 {
 				methods = append(methods, "/**")
 				lines := strings.Split(strings.TrimSpace(doc), "\n")
 				for i, line := range lines {
