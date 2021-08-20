@@ -1,19 +1,22 @@
 {
   "name": "@filecoin-shipyard/lotus-client-schema",
-  "version": "3.0.1",
+  "version": "0.0.0-dev",
+  "description": "Lotus JS Client API Schema",
   "scripts": {
     "lint": "standard",
     "test": "npm run lint",
-    "dual-publish": "release-it --no-npm.publish && dual-publish",
-    "dual-publish-check": "rm -rf dual-publish-tmp; dual-publish --check"
+    "prepublishOnly": "npm test",
+    "dual-publish-prepare": "rm -rf dual-publish-tmp; dual-publish --check",
+    "build": "npm run dual-publish-prepare"
   },
-  "keywords": [],
+  "keywords": [
+    "filecoin"
+  ],
   "author": "Jim Pick (@jimpick)",
   "license": "(Apache-2.0 AND MIT)",
   "devDependencies": {
-    "dual-publish": "^0.11.0",
-    "release-it": "^14.2.0",
-    "standard": "^14.3.4"
+    "dual-publish": "^1.0.8",
+    "standard": "^16.0.3"
   },
   "repository": {
     "type": "git",
@@ -23,5 +26,90 @@
     "url": "https://github.com/filecoin-shipyard/js-lotus-client-schema/issues"
   },
   "homepage": "https://github.com/filecoin-shipyard/js-lotus-client-schema#readme",
-  "description": "Lotus JS Client Schema module"
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits",
+          "releaseRules": [
+            {
+              "breaking": true,
+              "release": "major"
+            },
+            {
+              "revert": true,
+              "release": "patch"
+            },
+            {
+              "type": "feat",
+              "release": "minor"
+            },
+            {
+              "type": "fix",
+              "release": "patch"
+            },
+            {
+              "type": "chore",
+              "release": "patch"
+            },
+            {
+              "type": "docs",
+              "release": "patch"
+            },
+            {
+              "type": "test",
+              "release": "patch"
+            },
+            {
+              "scope": "no-release",
+              "release": false
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits",
+          "presetConfig": {
+            "types": [
+              {
+                "type": "feat",
+                "section": "Features"
+              },
+              {
+                "type": "fix",
+                "section": "Bug Fixes"
+              },
+              {
+                "type": "chore",
+                "section": "Trivial Changes"
+              },
+              {
+                "type": "docs",
+                "section": "Trivial Changes"
+              },
+              {
+                "type": "test",
+                "section": "Tests"
+              }
+            ]
+          }
+        }
+      ],
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "dual-publish-tmp"
+        }
+      ],
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ]
+  }
 }
