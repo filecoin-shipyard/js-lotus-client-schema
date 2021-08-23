@@ -1,3 +1,10 @@
+### [4.0.1](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.0.0...v4.0.1) (2021-08-23)
+
+
+### Trivial Changes
+
+* make allowance for web3bot 'sync' PRs ([c5b00c8](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/c5b00c83239860521e5eac4093310c6f9fbf9d56)), closes [#12](https://github.com/filecoin-shipyard/js-lotus-client-schema/issues/12)
+
 ## [4.0.0](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v3.0.2...v4.0.0) (2021-08-20)
 
 
