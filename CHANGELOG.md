@@ -1,3 +1,10 @@
+### [4.0.2](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.0.1...v4.0.2) (2021-09-27)
+
+
+### Trivial Changes
+
+* **deps-dev:** bump dual-publish from 1.0.9 to 2.0.0 ([3395fd6](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/3395fd63248718245a591a100e5a2aa8fb2e0097))
+
 ### [4.0.1](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.0.0...v4.0.1) (2021-08-23)
 
 
