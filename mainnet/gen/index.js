@@ -302,6 +302,7 @@ const StorageMinerMethods = {
   MarketPendingDeals: {},
   MarketPublishPendingDeals: {},
   MarketRestartDataTransfer: {},
+  MarketRetryPublishDeal: {},
   MarketSetAsk: {},
   MarketSetRetrievalAsk: {},
   MiningBase: {},
