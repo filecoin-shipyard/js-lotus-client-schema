@@ -2,4 +2,4 @@ module github.com/filecoin-shipyard/js-lotus-client-schema/go-schemagen
 
 go 1.16
 
-require github.com/filecoin-project/lotus v1.11.1
+require github.com/filecoin-project/lotus v1.13.0-rc3
