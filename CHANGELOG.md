@@ -1,3 +1,10 @@
+### [4.0.6](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.0.5...v4.0.6) (2021-11-18)
+
+
+### Bug Fixes
+
+* **ci:** exclude main files from build on windows ([6d11bee](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/6d11bee6ec5dfd3014faab784a066f0d0c12c13a))
+
 ### [4.0.5](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.0.4...v4.0.5) (2021-11-04)
 
 
