@@ -1,3 +1,17 @@
+### [4.0.7](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.0.6...v4.0.7) (2022-01-20)
+
+
+### Bug Fixes
+
+* use 16.x for release script, as required by dual-publish ([23e7b74](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/23e7b740ab83098ff14095d49a83c3838a9096d2))
+
+
+### Trivial Changes
+
+* **deps-dev:** bump dual-publish from 2.0.2 to 3.0.0 ([6b7297c](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/6b7297caba22c9ef9623b94cd222cbe0968bc840))
+* **no-release:** bump actions/setup-node from 2.4.1 to 2.5.0 ([#28](https://github.com/filecoin-shipyard/js-lotus-client-schema/issues/28)) ([afdf4c5](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/afdf4c543ac5f89d6b74a4e59507c4db367681dd))
+* **no-release:** bump actions/setup-node from 2.5.0 to 2.5.1 ([#30](https://github.com/filecoin-shipyard/js-lotus-client-schema/issues/30)) ([2a00ddd](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/2a00ddd6f044601f0dc821c6e23457118159265a))
+
 ### [4.0.6](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.0.5...v4.0.6) (2021-11-18)
 
 
