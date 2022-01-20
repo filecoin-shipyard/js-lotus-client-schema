@@ -16,7 +16,7 @@
   "author": "Jim Pick (@jimpick)",
   "license": "(Apache-2.0 AND MIT)",
   "devDependencies": {
-    "dual-publish": "^2.0.0",
+    "dual-publish": "^3.0.0",
     "standard": "^16.0.3"
   },
   "repository": {
