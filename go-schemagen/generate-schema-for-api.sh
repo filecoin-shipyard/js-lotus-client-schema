@@ -17,6 +17,6 @@ for api in $APIS; do
   echo " ... ${api}"
 done
 
-echo "export { $(echo $APIS | sed -E 's/\w+/&Methods/g' | sed 's/ /, /g') }" >> ${output}
+echo "module.exports = { $(echo $APIS | sed -E 's/\w+/&Methods/g' | sed 's/ /, /g') }" >> ${output}
 
 echo "Wrote generated API to ${output}, use 'standard --fix' to reformat"

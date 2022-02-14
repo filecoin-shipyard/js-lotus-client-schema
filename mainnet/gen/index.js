@@ -54,6 +54,7 @@ const FullNodeMethods = {
   },
   ClientDealPieceCID: {},
   ClientDealSize: {},
+  ClientExport: {},
   ClientFindData: {},
   ClientGenCar: {},
   ClientGetDealInfo: {},
@@ -76,9 +77,7 @@ const FullNodeMethods = {
   ClientRestartDataTransfer: {},
   ClientRetrieve: {},
   ClientRetrieveTryRestartInsufficientFunds: {},
-  ClientRetrieveWithEvents: {
-    subscription: true
-  },
+  ClientRetrieveWait: {},
   ClientStartDeal: {},
   ClientStatelessDeal: {},
   Closing: {
@@ -125,6 +124,7 @@ const FullNodeMethods = {
   MsigApprove: {},
   MsigApproveTxnHash: {},
   MsigCancel: {},
+  MsigCancelTxnHash: {},
   MsigCreate: {},
   MsigGetAvailableBalance: {},
   MsigGetPending: {},
@@ -386,7 +386,10 @@ const StorageMinerMethods = {
 
 const GatewayMethods = {
   ChainGetBlockMessages: {},
+  ChainGetGenesis: {},
   ChainGetMessage: {},
+  ChainGetParentMessages: {},
+  ChainGetParentReceipts: {},
   ChainGetPath: {},
   ChainGetTipSet: {},
   ChainGetTipSetAfterHeight: {},
@@ -458,4 +461,4 @@ const WorkerMethods = {
   WaitQuiet: {}
 }
 
-export { CommonMethods, FullNodeMethods, StorageMinerMethods, GatewayMethods, WalletMethods, WorkerMethods }
+module.exports = { CommonMethods, FullNodeMethods, StorageMinerMethods, GatewayMethods, WalletMethods, WorkerMethods }
