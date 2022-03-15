@@ -1,3 +1,12 @@
+### [4.1.1](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.1.0...v4.1.1) (2022-03-15)
+
+
+### Trivial Changes
+
+* **deps:** bump actions/checkout from 2 to 3 ([#38](https://github.com/filecoin-shipyard/js-lotus-client-schema/issues/38)) ([766a4e3](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/766a4e3da4aae5dbf86e121101a82a29627a7c37))
+* **no-release:** bump actions/checkout from 2 to 3 ([#36](https://github.com/filecoin-shipyard/js-lotus-client-schema/issues/36)) ([3f2ce11](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/3f2ce112dc5dd48a406fc0ce45284764ff6bee0b))
+* **no-release:** bump actions/setup-node from 2.5.1 to 3.0.0 ([#35](https://github.com/filecoin-shipyard/js-lotus-client-schema/issues/35)) ([02509f2](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/02509f2d732340d31acfb611791c5b427a084ffc))
+
 ## [4.1.0](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.0.7...v4.1.0) (2022-02-14)
 
 
