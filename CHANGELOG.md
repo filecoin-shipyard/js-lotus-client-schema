@@ -1,3 +1,10 @@
+## [4.2.0](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.1.1...v4.2.0) (2022-03-15)
+
+
+### Features
+
+* update to lotus@1.15.0 ([25f04ef](https://github.com/filecoin-shipyard/js-lotus-client-schema/commit/25f04effc1c6973f56f1afc56dfa7adc79b66cc5))
+
 ### [4.1.1](https://github.com/filecoin-shipyard/js-lotus-client-schema/compare/v4.1.0...v4.1.1) (2022-03-15)
 
 
