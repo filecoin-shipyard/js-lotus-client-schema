@@ -16,7 +16,7 @@ jobs:
     runs-on: ${{ format('{0}-latest', matrix.os) }}
     name: ${{ matrix.os }} (go ${{ matrix.go }})
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           submodules: recursive
       - uses: actions/setup-go@v2
