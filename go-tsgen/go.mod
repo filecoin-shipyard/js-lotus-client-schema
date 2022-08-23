@@ -1,6 +1,6 @@
 module github.com/filecoin-shipyard/js-lotus-client-schema/go-tsgen
 
-go 1.17
+go 1.18
 
 require (
 	github.com/alanshaw/go2ts v0.3.0
