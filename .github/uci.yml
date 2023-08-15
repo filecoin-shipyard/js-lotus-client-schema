@@ -1,0 +1,4 @@
+files:
+  - .github/workflows/go-test.yml
+  - .github/workflows/go-check.yml
+  - .github/workflows/js-test-and-release.yml
